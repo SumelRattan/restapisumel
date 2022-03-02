@@ -1,16 +1,17 @@
 {
-  "name": "restapi",
+  "name": "work",
   "version": "1.0.0",
-  "description": "a simple api that takes array in and return value",
+  "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-
-  "author": "SumelRattan",
+  "author": "",
   "license": "ISC",
-  "type": "module",
   "dependencies": {
+    "body-parser": "^1.19.2",
+    "dotenv": "^16.0.0",
     "express": "^4.17.3"
   }
 }
