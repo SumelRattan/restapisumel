@@ -1,30 +1,44 @@
 const express = require('express');
-const path = require('path');
+var bodyParser = require('body-parser')
 
-import express from "express";
-import Cors from 'cors';
+const app = express()
 
-const app = express();
-const port = process.env.PORT || 8001;
-app.use(express.json());
-app.use(Cors());
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
-app.get('/', (req, res) => res.status(200).send("Hello Programmers"));
 
-app.post('/bfhl', (req, res) => {
-    const data = [...req.body.data]
 
-    let numbers = data.filter((value) => !isNaN(value))
-
-    let alphabets = data.filter((value) => (/[a-zA-Z]/).test(value));
-    res.status(200).send({
-        'is_success': 'true',
-        'user_id': 'Sumel_1911981161',
-        'email': 'sumelrattan.cse19@chitkarauniversity.edu.in',
-        'roll_number': '1911981161',
-        'numbers': numbers,
-        'alphabet': alphabets
-    })
+app.post('/bfhl',(req,res)=>{
+    let status = true;
+    try{
+    let num_Arr = []
+    let alf_Arr = []
+    let arr = req.body.data
+    for(let i=0;i<arr.length;i++){
+        if(!isNaN(arr[i])){
+            num_Arr.push(arr[i])
+        }else{
+            alf_Arr.push(arr[i])
+        }
+    }
+    let ans = {
+        is_success: status,
+        user_id: "sumel_rattan_1911981161",
+        email: "sumelrattan.cse19@chitkarauniversity.edu.in",
+        roll_number: "1911981161",
+        numbers:num_Arr,
+        alphabets:alf_Arr
+    }
+    res.send(ans)
+    }
+    catch(err){
+        status = false;
+        res.send({
+            is_success: status
+        })
+    }
 })
 
-app.listen(port, () => console.log(`listening :${port}`));
+app.listen(process.env.PORT, () => {
+    console.log("Server is running at port 8000");
+});
